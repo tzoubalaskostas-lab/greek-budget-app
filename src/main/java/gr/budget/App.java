@@ -44,7 +44,11 @@ public class App {
 
          Scanner scanner = new Scanner(System.in);
 
+<<<<<<< Updated upstream
         while (true) {
+=======
+     while (true) {
+>>>>>>> Stashed changes
             System.out.println("\n==============================");
             System.out.println("🏛️  ΕΛΛΗΝΙΚΟΣ ΠΡΟΥΠΟΛΟΓΙΣΜΟΣ 2025");
             System.out.println("==============================");
@@ -57,25 +61,62 @@ public class App {
             scanner.nextLine(); // καθάρισμα buffer
 
             if (choice == 1) {
+<<<<<<< Updated upstream
                 System.out.println("➡ Επιλέξατε: Μεταβολή προϋπολογισμού (δεν έχει υλοποιηθεί ακόμη)");
             } 
+=======
+                System.out.println("➡ Επιλέξατε: Μεταβολή προϋπολογισμού ");
+            }
+                
+
+
+
+
+
+>>>>>>> Stashed changes
             else if (choice == 2) {
                 System.out.println("➡ Επιλέξατε: Εμφάνιση προϋπολογισμού ");
                 getbalance(totalRevenues, totalExpenses);
             }
+<<<<<<< Updated upstream
+=======
+
+
+
+
+
+>>>>>>> Stashed changes
             else if (choice == 0) {
                 System.out.println("🔚 Έξοδος από την εφαρμογή. Αντίο!");
                 break;
             }
+<<<<<<< Updated upstream
+=======
+
+
+
+
+>>>>>>> Stashed changes
             else {
                 System.out.println("❗ Μη έγκυρη επιλογή. Προσπαθήστε ξανά.");
             }
         }
 
+<<<<<<< Updated upstream
         scanner.close();
     }
         
       
+=======
+     scanner.close();
+   
+    }
+
+      
+    
+
+      
+>>>>>>> Stashed changes
     public static void getbalance( double trev, double texp ){
 
         double balance = trev - texp;
