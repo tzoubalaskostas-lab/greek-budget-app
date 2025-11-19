@@ -13,7 +13,7 @@ public class BudgetEditor {
         boolean running = true;
 
         while (running) {
-            System.out.println("\n===== ΕΡΓΑΛΕΙΟ ΕΠΕΞΕΡΓΑΣΙΑΣ ΠΡΟΥΠΟΛΟΓΙΣΜΟΥ =====");
+            System.out.println("\n========= ΕΡΓΑΛΕΙΟ ΕΠΕΞΕΡΓΑΣΙΑΣ ΠΡΟΥΠΟΛΟΓΙΣΜΟΥ =========");
             System.out.println("1. Επεξεργασία εξόδων");
             System.out.println("2. Επεξεργασία εσόδων");
             System.out.println("3. Εμφάνιση λιστών και ισοζυγίου");
@@ -74,7 +74,7 @@ public class BudgetEditor {
             e.setAmount_eur(amountStr + e.getAmount_eur());
         } else {
             System.out.println("Δεν επιτρέπεται το υπόλοιπο των εξόδων του Υπουργείου να ειναι αρνητικό");
-            continue;
+            
         }
 
         System.out.println("Αλλαγή στα έξοδα καταχωρήθηκε.");
@@ -89,16 +89,30 @@ public class BudgetEditor {
         Revenue r = revenues.get(index);
 
         System.out.print(" ποσό που θα προστεθεί στην πηγή εσόδων (€) : ");
-        String amountStr = scanner.nextLine();
+        double amountStr = scanner.nextDouble();
         if (!(amountStr + r.getAmount() < 0 )) {
-            r.setAmount(Double.parseDouble(amountStr));
+            r.setAmount(amountStr + r.getAmount());
         } else {
-            System.out.println(" Δεν επιτρέπεται η πηγή εσόδων να είναι αρνητική ")
-            continue;
+            System.out.println(" Δεν επιτρέπεται η πηγή εσόδων να είναι αρνητική ");
+            
         }
 
         System.out.println(" Αλλαγή στα έσοδα καταχωρήθηκε.");
     }
 
+
+
+    public static void displayBalance(List<Expense> expenses, List<Revenue> revenues) {
+        double totalExpenses = 0;
+        double totalRevenues = 0;
+
+        for (Expense e : expenses) totalExpenses += e.getAmount_eur();
+        for (Revenue r : revenues) totalRevenues += r.getAmount();
+
+        System.out.println("\n--- ΙΣΟΖΥΓΙΟ ---");
+        System.out.printf("Σύνολο εξόδων: %.2f €\n", totalExpenses);
+        System.out.printf("Σύνολο εσόδων: %.2f €\n", totalRevenues);
+        System.out.printf("Ισοζύγιο: %.2f €\n", (totalRevenues - totalExpenses));
+    }
     
 }

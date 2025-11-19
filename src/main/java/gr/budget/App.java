@@ -45,11 +45,11 @@ public class App {
          Scanner scanner = new Scanner(System.in);
 
      while (true) {
-            System.out.println("\n==============================");
+            System.out.println("\n==================================");
             System.out.println("🏛️  ΕΛΛΗΝΙΚΟΣ ΠΡΟΥΠΟΛΟΓΙΣΜΟΣ 2025");
-            System.out.println("==============================");
-            System.out.println("1. 🔧 Μεταβολή στοιχείων προϋπολογισμού");
-            System.out.println("2. 📊 Εμφάνιση κατάστασης προϋπολογισμού");
+            System.out.println("==================================");
+            System.out.println("1. 🔧 Μεταβολή στοιχείων προϋπολογισμού (User sandbox)");
+            System.out.println("2. 📊 Εμφάνιση κατάστασης πραγματικού προϋπολογισμού");
             System.out.println("0. 🔚 Έξοδος");
             System.out.print("\nΕπιλέξτε μια επιλογή: ");
 
@@ -57,7 +57,8 @@ public class App {
             scanner.nextLine(); // καθάρισμα buffer
 
             if (choice == 1) {
-                System.out.println("➡ Επιλέξατε: Μεταβολή προϋπολογισμού ");
+                System.out.println("➡ Επιλέξατε: User Sandbox (test cases) ");
+                BudgetEditor.openEditor(expenses, revenues, scanner);
             }
                 
 
@@ -67,6 +68,9 @@ public class App {
 
             else if (choice == 2) {
                 System.out.println("➡ Επιλέξατε: Εμφάνιση προϋπολογισμού ");
+                
+                 System.out.printf("\nTotal Revenues: %.2f €\n", totalRevenues);
+                 System.out.printf("Total Expenses: %.2f €\n", totalExpenses);
                 getbalance(totalRevenues, totalExpenses);
             }
 
