@@ -25,4 +25,12 @@ public class Revenue {
         return incomesource + " → " + String.format("%.2f €", amount) + " (" + year + ")";
     }
     
+    public Revenue(String incomesource, double amount, int year) {
+        this.incomesource = incomesource;
+        this.amount = amount;
+        this.year = year;
+    }
+
+    public Revenue() {};
+
 }

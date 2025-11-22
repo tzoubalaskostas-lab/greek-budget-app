@@ -6,9 +6,10 @@ import java.util.Scanner;
 public class BudgetEditor {
 
 
-      public static void openEditor(List<Expense> expenses, List<Revenue> revenues, Scanner scanner) {
+      public static void openEditor(List<Expense> WorkingExpenses, List<Revenue> WorkingRevenues, Scanner scanner, List<Expense> OriginalExpenses, List<Revenue> OriginalRevenues) {
 
         System.setProperty("file.encoding", "UTF-8");
+
 
         boolean running = true;
 
@@ -17,6 +18,7 @@ public class BudgetEditor {
             System.out.println("1. Επεξεργασία εξόδων");
             System.out.println("2. Επεξεργασία εσόδων");
             System.out.println("3. Εμφάνιση λιστών και ισοζυγίου");
+            System.out.println("4. επαναφορά στοιχείων (reset sandbox)");
             System.out.println("0. Επιστροφή στο κεντρικό μενού");
             System.out.print("Επιλογή: ");
 
@@ -25,16 +27,19 @@ public class BudgetEditor {
 
             switch (choice) {
                 case 1:
-                    editExpenses(expenses, scanner);
+                    editExpenses(WorkingExpenses, scanner);
                     break;
                 case 2:
-                    editRevenues(revenues, scanner);
+                    editRevenues(WorkingRevenues, scanner);
                     break;
                 case 3:
-                    showExpenses(expenses);
-                    showRevenues(revenues);
-                    displayBalance(expenses, revenues);
+                    showExpenses(WorkingExpenses);
+                    showRevenues(WorkingRevenues);
+                    displayBalance(WorkingExpenses, WorkingRevenues);
                     break;
+                case 4:
+                    resetLists(WorkingExpenses, WorkingRevenues, OriginalExpenses, OriginalRevenues);
+
                 case 0:
                     running = false;
                     break;
@@ -44,29 +49,29 @@ public class BudgetEditor {
         }
     }
 
-    public static void showExpenses(List<Expense> expenses) {
+    public static void showExpenses(List<Expense> WorkingExpenses) {
         System.out.println("\n--- ΕΞΟΔΑ ---");
-        for (int i = 0; i < expenses.size(); i++) {
-            Expense e = expenses.get(i);
+        for (int i = 0; i < WorkingExpenses.size(); i++) {
+            Expense e = WorkingExpenses.get(i);
             System.out.printf("%d. %s → %.2f € (%d)\n", i + 1, e.getMinistry(), e.getAmount_eur(), e.getYear());
         }
     }
 
-    public static void showRevenues(List<Revenue> revenues) {
+    public static void showRevenues(List<Revenue> WorkingRevenues) {
         System.out.println("\n--- ΕΣΟΔΑ ---");
-        for (int i = 0; i < revenues.size(); i++) {
-            Revenue r = revenues.get(i);
+        for (int i = 0; i < WorkingRevenues.size(); i++) {
+            Revenue r = WorkingRevenues.get(i);
             System.out.printf("%d. %s → %.2f € (%d)\n", i + 1, r.getIncomesource(), r.getAmount(), r.getYear());
         }
     }
 
-    public static void editExpenses(List<Expense> expenses, Scanner scanner) {
-        showExpenses(expenses);
+    public static void editExpenses(List<Expense> WorkingExpenses, Scanner scanner) {
+        showExpenses(WorkingExpenses);
         System.out.print("Επιλέξτε αριθμό εξόδου για αλλαγή: ");
         int index = scanner.nextInt() - 1;
         scanner.nextLine();
 
-        Expense e = expenses.get(index);
+        Expense e = WorkingExpenses.get(index);
 
         System.out.print(" ποσό που θα προστεθεί στο υπουργείο (€) : ");
         double amountStr = scanner.nextDouble();
@@ -80,13 +85,13 @@ public class BudgetEditor {
         System.out.println("Αλλαγή στα έξοδα καταχωρήθηκε.");
     }
 
-    public static void editRevenues(List<Revenue> revenues, Scanner scanner) {
-        showRevenues(revenues);
+    public static void editRevenues(List<Revenue> WorkingRevenues, Scanner scanner) {
+        showRevenues(WorkingRevenues);
         System.out.print("Επιλέξτε αριθμό εσόδου για αλλαγή: ");
         int index = scanner.nextInt() - 1;
         scanner.nextLine();
 
-        Revenue r = revenues.get(index);
+        Revenue r = WorkingRevenues.get(index);
 
         System.out.print(" ποσό που θα προστεθεί στην πηγή εσόδων (€) : ");
         double amountStr = scanner.nextDouble();
@@ -102,17 +107,47 @@ public class BudgetEditor {
 
 
 
-    public static void displayBalance(List<Expense> expenses, List<Revenue> revenues) {
+    public static void displayBalance(List<Expense> WorkingExpenses, List<Revenue> WorkingRevenues) {
         double totalExpenses = 0;
         double totalRevenues = 0;
 
-        for (Expense e : expenses) totalExpenses += e.getAmount_eur();
-        for (Revenue r : revenues) totalRevenues += r.getAmount();
+        for (Expense e : WorkingExpenses) totalExpenses += e.getAmount_eur();
+        for (Revenue r : WorkingRevenues) totalRevenues += r.getAmount();
 
         System.out.println("\n--- ΙΣΟΖΥΓΙΟ ---");
         System.out.printf("Σύνολο εξόδων: %.2f €\n", totalExpenses);
         System.out.printf("Σύνολο εσόδων: %.2f €\n", totalRevenues);
         System.out.printf("Ισοζύγιο: %.2f €\n", (totalRevenues - totalExpenses));
     }
-    
+
+     public static void resetLists(
+        List<Expense> workingExpenses,
+        List<Revenue> workingRevenues,
+        List<Expense> originalExpenses,
+        List<Revenue> originalRevenues) {
+
+        // Reset expenses
+        workingExpenses.clear();
+        for (Expense e : originalExpenses) {
+            workingExpenses.add(new Expense(
+                    e.getMinistry(),
+                    e.getAmount_eur(),
+                    e.getYear()
+            ));
+        }
+
+        // Reset revenues
+        workingRevenues.clear();
+        for (Revenue r : originalRevenues) {
+            workingRevenues.add(new Revenue(
+                    r.getIncomesource(),
+                    r.getAmount(),
+                    r.getYear()
+            ));
+        }
+
+        System.out.println("✔ Οι αλλαγές επανήλθαν στις αρχικές τιμές.");
+    }
+
+
 }

@@ -1,7 +1,7 @@
 package gr.budget;
 
 public class Expense {
-  private String ministry;
+    private String ministry;
     private double amount_eur;
     private int year;
 
@@ -18,4 +18,13 @@ public class Expense {
     public String toString(){
         return ministry + " → " + String.format("%.2f €", amount_eur) + " (" + year + ")";
     }
+
+    public Expense(String ministry, double amount_eur, int year) {
+        this.ministry = ministry;
+        this.amount_eur = amount_eur;
+        this.year = year;
+    }
+
+    public Expense(){};
+    
 }

@@ -3,6 +3,7 @@ package gr.budget;
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import java.io.InputStream;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
 
@@ -18,23 +19,33 @@ public class App {
         ObjectMapper mapper = new ObjectMapper();
 
         InputStream expStream = App.class.getResourceAsStream("/expenses.json");
-        List<Expense> expenses = mapper.readValue(expStream, new TypeReference<List<Expense>>() {});
+        List<Expense> OriginalExpenses = mapper.readValue(expStream, new TypeReference<List<Expense>>() {});
 
         InputStream revStream = App.class.getResourceAsStream("/revenues.json");
-        List<Revenue> revenues = mapper.readValue(revStream, new TypeReference<List<Revenue>>() {});
+        List<Revenue> OriginalRevenues = mapper.readValue(revStream, new TypeReference<List<Revenue>>() {});
+
+       List<Expense> WorkingExpenses = new ArrayList<>();
+        for (Expense e : OriginalExpenses) {
+            WorkingExpenses.add(new Expense(e.getMinistry(), e.getAmount_eur(), e.getYear()));
+        }
+
+        List<Revenue> WorkingRevenues = new ArrayList<>();
+for (Revenue r : OriginalRevenues) {
+    WorkingRevenues.add(new Revenue(r.getIncomesource(), r.getAmount(), r.getYear()));
+}
 
         System.out.println("📊 Greek Budget 2025 Simulation\n");
 
-// εμφανιζουμε τις δυο λιστες με τα εσοδα και εξοδα του κρατους οπως αυτα δημιουργηθηκαν  παρα[ανω απο τα αρχεια json
+// εμφανιζουμε τις δυο λιστες με τα εσοδα και εξοδα του κρατους οπως αυτα δημιουργηθηκαν  παραπανω απο τα αρχεια json
 
         System.out.println("🧾 EXPENSES (per Ministry):");
-        expenses.forEach(System.out::println);
+        OriginalExpenses.forEach(System.out::println);
 
         System.out.println("\n💰 REVENUES (per Source):");
-        revenues.forEach(System.out::println);
+        OriginalRevenues.forEach(System.out::println);
 
-        double totalExpenses = expenses.stream().mapToDouble(Expense::getAmount_eur).sum();
-        double totalRevenues = revenues.stream().mapToDouble(Revenue::getAmount).sum();
+        double totalExpenses = OriginalExpenses.stream().mapToDouble(Expense::getAmount_eur).sum();
+        double totalRevenues = OriginalRevenues.stream().mapToDouble(Revenue::getAmount).sum();
 
         System.out.printf("\nTotal Revenues: %.2f €\n", totalRevenues);
         System.out.printf("Total Expenses: %.2f €\n", totalExpenses);
@@ -58,7 +69,7 @@ public class App {
 
             if (choice == 1) {
                 System.out.println("➡ Επιλέξατε: User Sandbox (test cases) ");
-                BudgetEditor.openEditor(expenses, revenues, scanner);
+                BudgetEditor.openEditor(WorkingExpenses, WorkingRevenues, scanner, OriginalExpenses, OriginalRevenues );
             }
                 
 
