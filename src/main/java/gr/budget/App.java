@@ -30,9 +30,9 @@ public class App {
         }
 
         List<Revenue> WorkingRevenues = new ArrayList<>();
-for (Revenue r : OriginalRevenues) {
-    WorkingRevenues.add(new Revenue(r.getIncomesource(), r.getAmount(), r.getYear()));
-}
+        for (Revenue r : OriginalRevenues) {
+            WorkingRevenues.add(new Revenue(r.getIncomesource(), r.getAmount(), r.getYear()));
+        }
 
         System.out.println("📊 Greek Budget 2025 Simulation\n");
 
@@ -61,6 +61,7 @@ for (Revenue r : OriginalRevenues) {
             System.out.println("==================================");
             System.out.println("1. 🔧 Μεταβολή στοιχείων προϋπολογισμού (User sandbox)");
             System.out.println("2. 📊 Εμφάνιση κατάστασης πραγματικού προϋπολογισμού");
+            System.out.println("3. Εμφάμιση στατιστικών τρέχων προϋπολογισμού");
             System.out.println("0. 🔚 Έξοδος");
             System.out.print("\nΕπιλέξτε μια επιλογή: ");
 
@@ -88,6 +89,14 @@ for (Revenue r : OriginalRevenues) {
 
 
 
+            else if (choice == 3) {
+                System.out.println("➡ Επιλέξατε: εμφάνιση στατιστικών προϋπολογισμού");
+                Statistics.showBudgetPercentages( OriginalExpenses, OriginalRevenues,totalRevenues, totalExpenses);
+
+            }
+
+
+            
 
             else if (choice == 0) {
                 System.out.println("🔚 Έξοδος από την εφαρμογή. Αντίο!");

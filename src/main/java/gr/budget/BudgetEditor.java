@@ -39,7 +39,7 @@ public class BudgetEditor {
                     break;
                 case 4:
                     resetLists(WorkingExpenses, WorkingRevenues, OriginalExpenses, OriginalRevenues);
-
+                    break;
                 case 0:
                     running = false;
                     break;
@@ -147,6 +147,8 @@ public class BudgetEditor {
         }
 
         System.out.println("✔ Οι αλλαγές επανήλθαν στις αρχικές τιμές.");
+
+    
     }
 
 
