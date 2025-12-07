@@ -18,7 +18,8 @@ public class BudgetEditor {
             System.out.println("1. Επεξεργασία εξόδων");
             System.out.println("2. Επεξεργασία εσόδων");
             System.out.println("3. Εμφάνιση λιστών και ισοζυγίου");
-            System.out.println("4. επαναφορά στοιχείων (reset sandbox)");
+            System.out.println("4. Εμφάνιση στατιστικών με βάση τις αλλαγές σου");
+            System.out.println("5. επαναφορά στοιχείων (reset sandbox)");
             System.out.println("0. Επιστροφή στο κεντρικό μενού");
             System.out.print("Επιλογή: ");
 
@@ -38,6 +39,11 @@ public class BudgetEditor {
                     displayBalance(WorkingExpenses, WorkingRevenues);
                     break;
                 case 4:
+                    System.out.println(" Εμφανίζονται Στατιστικά που αφορούν τον προϋπολογισμό με τις αλλαγές σου");
+                    double texp = WorkingExpenses.stream().mapToDouble(Expense::getAmount_eur).sum();
+                    double trev = WorkingRevenues.stream().mapToDouble(Revenue::getAmount).sum();
+                    Statistics.showBudgetPercentages( WorkingExpenses, WorkingRevenues, trev, texp);
+                case 5:
                     resetLists(WorkingExpenses, WorkingRevenues, OriginalExpenses, OriginalRevenues);
                     break;
                 case 0:
