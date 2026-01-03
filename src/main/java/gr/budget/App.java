@@ -62,6 +62,7 @@ public class App {
             System.out.println("1. 🔧 Μεταβολή στοιχείων προϋπολογισμού (User sandbox)");
             System.out.println("2. 📊 Εμφάνιση κατάστασης πραγματικού προϋπολογισμού");
             System.out.println("3. Εμφάμιση στατιστικών τρέχων προϋπολογισμού");
+            System.out.println("4. Σύγκριση sandbox με πραγματικά δεδομένα και διαφορές");
             System.out.println("0. 🔚 Έξοδος");
             System.out.print("\nΕπιλέξτε μια επιλογή: ");
 
@@ -95,6 +96,15 @@ public class App {
 
             }
 
+
+            else if (choice == 4) {
+                Comparator.compareBudgets(
+                    OriginalExpenses,
+                    WorkingExpenses,
+                    OriginalRevenues,
+                    WorkingRevenues
+                );
+            }
 
             
 

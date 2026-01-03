@@ -43,6 +43,7 @@ public class BudgetEditor {
                     double texp = WorkingExpenses.stream().mapToDouble(Expense::getAmount_eur).sum();
                     double trev = WorkingRevenues.stream().mapToDouble(Revenue::getAmount).sum();
                     Statistics.showBudgetPercentages( WorkingExpenses, WorkingRevenues, trev, texp);
+                    break;
                 case 5:
                     resetLists(WorkingExpenses, WorkingRevenues, OriginalExpenses, OriginalRevenues);
                     break;
